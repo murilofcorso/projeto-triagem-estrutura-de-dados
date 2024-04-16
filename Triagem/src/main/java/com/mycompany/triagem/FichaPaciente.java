@@ -367,6 +367,10 @@ public class FichaPaciente extends javax.swing.JFrame {
             "tosseCheckBox"
         };
         
+        String informacoesMedicas[] = {
+            "cirurgias", "alergias", "medicamentos", "predisposicoes"
+        };
+        
         String sintomas[] = {
             "febre", "dificuldadeRespirar", "dificuldadeEngolir", "perdaOlfato", 
             "perdaPaladar", "dorGarganta", "tosse", "cefaleia", "coriza", 
@@ -375,6 +379,7 @@ public class FichaPaciente extends javax.swing.JFrame {
         };
         
         for (String nome : nomeDasVariaveis) {
+            // Verificar se a variavel é um TextField
             if (nome.contains("TextField")) {
                 try {
                     // Obter o campo usando reflexão
@@ -388,11 +393,28 @@ public class FichaPaciente extends javax.swing.JFrame {
                         JTextField textField = (JTextField) fieldValue;
                         // Obter o texto do campo
                         String texto = textField.getText();
+                        // Verificar se o campo está preenchido
+                        if(texto.isEmpty()) {
+                            System.out.println("PREENCHA TODOS OS CAMPOS");
+                            break;
+                        } else {
+                            texto = texto.toLowerCase();
+                            // Iterar pelas informações médicas
+                            for(int i = 0; i < informacoesMedicas.length; i++) {
+                                if(nome.contains(informacoesMedicas[i])) {
+                                    // Verificar se o campo foi preenchido com "não"
+                                    if(!(texto.contains("nao") | texto.contains("não"))) {
+                                        pontuacao += 2;
+                                    }
+                                }
+                            }
+                        }
                     }
                 } catch (NoSuchFieldException | IllegalAccessException ex) {
                     ex.printStackTrace();
                 }
             }
+            // Verificar se a variavel é um CheckBox
             else if (nome.contains("CheckBox")) {
                 try {
                     // Obter o campo usando reflexão
@@ -404,9 +426,13 @@ public class FichaPaciente extends javax.swing.JFrame {
                     // Verificar se o valor é do tipo JCheckBox
                     if (fieldValue instanceof JCheckBox) {
                         JCheckBox checkBox = (JCheckBox) fieldValue;
-                        // Verificando se é fumante ou se bebe álcool
+                        // Verificar se é fumante ou se bebe álcool
                         if((nome.contains("fumante") | nome.contains("alcool")) & checkBox.isSelected()) {
                             pontuacao += 3;
+                        }
+                        // Verificar se pratica atividade física regular
+                        else if(nome.contains("atividadeFisica") & checkBox.isSelected()) {
+                            pontuacao -= 3;
                         }
                         // Iterar pelos sintomas
                         for(int i = 0; i < sintomas.length; i++) {
