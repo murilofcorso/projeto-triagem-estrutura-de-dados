@@ -360,6 +360,13 @@ public class FichaPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enviarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarButtonActionPerformed
+        String nomePaciente = "";
+        String telefone = "";
+        String cpf = "";
+        String sexo = "";
+        String endereco = "";
+        String email = "";
+        String idade = "";
         int pontuacao = 0;
         
         String[] nomeDasVariaveis = {
@@ -378,10 +385,6 @@ public class FichaPaciente extends javax.swing.JFrame {
             "tosseCheckBox"
         };
         
-        String informacoesPessoais[] = {
-            "nome", "telefone", "cpf", "endereco", "email", "idade"
-        };
-        
         String informacoesMedicas[] = {
             "cirurgias", "alergias", "medicamentos", "predisposicoes"
         };
@@ -398,8 +401,9 @@ public class FichaPaciente extends javax.swing.JFrame {
             return;
         }
         
+        // Iterar sobre as variáveis
         for (String nome : nomeDasVariaveis) {
-            // Verificar se a variavel é um TextField
+            // Verificar se a variável é um TextField
             if (nome.contains("TextField")) {
                 try {
                     // Obter o campo usando reflexão
@@ -429,12 +433,23 @@ public class FichaPaciente extends javax.swing.JFrame {
                                     }
                                 }
                             }
-                            // Iterar pelas informações pessoais
-                            for(int i = 0; i < informacoesPessoais.length; i++) {
-                                // Verificar se o item é uma informação pessoal
-                                if(nome.contains(informacoesPessoais[i])) {
-                                    // cadastrar paciente
-                                }
+                            if(nome.contains("nome")) {
+                                nomePaciente = texto;
+                            }
+                            else if(nome.contains("telefone")) {
+                                telefone = texto;
+                            }
+                            else if(nome.contains("cpf")) {
+                                cpf = texto;
+                            } 
+                            else if(nome.contains("endereco")) {
+                                endereco = texto;
+                            }
+                            else if(nome.contains("email")) {
+                                email = texto;
+                            }
+                            else if(nome.contains("idade")) {
+                                idade = texto;
                             }
                         }
                     }
@@ -465,10 +480,10 @@ public class FichaPaciente extends javax.swing.JFrame {
                         else if(nome.contains("sexo")) {
                             if(checkBox.isSelected()) {
                                 if(nome.contains("Feminino")) {
-                                    System.out.println("fem");
+                                    sexo = "Feminino";
                                 }
                                 else if(nome.contains("Masculino")) {
-                                    System.out.println("mas");
+                                    sexo = "Masculino";
                                 }
                             }
                         }
@@ -503,7 +518,8 @@ public class FichaPaciente extends javax.swing.JFrame {
                 }
             }
         }
-         System.out.println(pontuacao);
+        Paciente p = new Paciente(nomePaciente, telefone, cpf, sexo, endereco, email, idade, pontuacao);
+         p.exibePaciente();
     }//GEN-LAST:event_enviarButtonActionPerformed
 
     private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
