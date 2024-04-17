@@ -6,6 +6,7 @@ package com.mycompany.triagem;
 
 import java.lang.reflect.Field;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -99,8 +100,18 @@ public class FichaPaciente extends javax.swing.JFrame {
         jLabel7.setText("E-mail:");
 
         sexoMasculinoCheckBox.setText("Masculino");
+        sexoMasculinoCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sexoMasculinoCheckBoxActionPerformed(evt);
+            }
+        });
 
         sexoFemininoCheckBox.setText("Feminino");
+        sexoFemininoCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sexoFemininoCheckBoxActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Informaçôes pessoais:");
@@ -245,7 +256,7 @@ public class FichaPaciente extends javax.swing.JFrame {
                                                     .addComponent(dificuldadeEngolirCheckBox)
                                                     .addComponent(congestaoCheckBox)
                                                     .addComponent(nauseaCheckBox))))
-                                        .addGap(0, 4, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,7 +351,7 @@ public class FichaPaciente extends javax.swing.JFrame {
                     .addComponent(dorGargantaCheckBox)
                     .addComponent(dorMuscularCheckBox)
                     .addComponent(nauseaCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(enviarButton)
                 .addGap(20, 20, 20))
         );
@@ -367,6 +378,10 @@ public class FichaPaciente extends javax.swing.JFrame {
             "tosseCheckBox"
         };
         
+        String informacoesPessoais[] = {
+            "nome", "telefone", "cpf", "endereco", "email", "idade"
+        };
+        
         String informacoesMedicas[] = {
             "cirurgias", "alergias", "medicamentos", "predisposicoes"
         };
@@ -377,6 +392,11 @@ public class FichaPaciente extends javax.swing.JFrame {
             "congestao", "diarreia", "nausea", "calafrio", "dorMuscular", 
             "fraqueza"
         };
+        
+        if(!(sexoMasculinoCheckBox.isSelected() | sexoFemininoCheckBox.isSelected())) {
+            JOptionPane.showMessageDialog(rootPane, "INSIRA O SEU SEXO");
+            return;
+        }
         
         for (String nome : nomeDasVariaveis) {
             // Verificar se a variavel é um TextField
@@ -395,17 +415,25 @@ public class FichaPaciente extends javax.swing.JFrame {
                         String texto = textField.getText();
                         // Verificar se o campo está preenchido
                         if(texto.isEmpty()) {
-                            System.out.println("PREENCHA TODOS OS CAMPOS");
+                            JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS OS CAMPOS");
                             break;
                         } else {
                             texto = texto.toLowerCase();
                             // Iterar pelas informações médicas
                             for(int i = 0; i < informacoesMedicas.length; i++) {
+                                // Verificar se o item é uma informação médica
                                 if(nome.contains(informacoesMedicas[i])) {
                                     // Verificar se o campo foi preenchido com "não"
                                     if(!(texto.contains("nao") | texto.contains("não"))) {
                                         pontuacao += 2;
                                     }
+                                }
+                            }
+                            // Iterar pelas informações pessoais
+                            for(int i = 0; i < informacoesPessoais.length; i++) {
+                                // Verificar se o item é uma informação pessoal
+                                if(nome.contains(informacoesPessoais[i])) {
+                                    // cadastrar paciente
                                 }
                             }
                         }
@@ -433,6 +461,16 @@ public class FichaPaciente extends javax.swing.JFrame {
                         // Verificar se pratica atividade física regular
                         else if(nome.contains("atividadeFisica") & checkBox.isSelected()) {
                             pontuacao -= 3;
+                        }
+                        else if(nome.contains("sexo")) {
+                            if(checkBox.isSelected()) {
+                                if(nome.contains("Feminino")) {
+                                    System.out.println("fem");
+                                }
+                                else if(nome.contains("Masculino")) {
+                                    System.out.println("mas");
+                                }
+                            }
                         }
                         // Iterar pelos sintomas
                         for(int i = 0; i < sintomas.length; i++) {
@@ -467,6 +505,18 @@ public class FichaPaciente extends javax.swing.JFrame {
         }
          System.out.println(pontuacao);
     }//GEN-LAST:event_enviarButtonActionPerformed
+
+    private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
+        if(sexoMasculinoCheckBox.isSelected()) {
+            sexoFemininoCheckBox.setSelected(false);  
+        }
+    }//GEN-LAST:event_sexoMasculinoCheckBoxActionPerformed
+
+    private void sexoFemininoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoFemininoCheckBoxActionPerformed
+        if(sexoFemininoCheckBox.isSelected()) {
+            sexoMasculinoCheckBox.setSelected(false);  
+        }
+    }//GEN-LAST:event_sexoFemininoCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
