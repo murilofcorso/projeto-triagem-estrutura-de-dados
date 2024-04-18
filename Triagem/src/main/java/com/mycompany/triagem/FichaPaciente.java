@@ -5,6 +5,11 @@
 package com.mycompany.triagem;
 
 import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -519,7 +524,21 @@ public class FichaPaciente extends javax.swing.JFrame {
             }
         }
         Paciente p = new Paciente(nomePaciente, telefone, cpf, sexo, endereco, email, idade, pontuacao);
-         p.exibePaciente();
+        
+        ConnectionFactory factory = new ConnectionFactory();
+        Connection con = factory.getConnection();
+        
+        String statement = String.format("INSERT INTO pacientes (nome, idade, sexo, endereco, email, cpf, telefone, pontuacao) "
+                + "VALUES (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\")", 
+                nomePaciente, idade, sexo, endereco, email, cpf, telefone, pontuacao);
+        try {
+            PreparedStatement stmt = con.prepareStatement(statement);
+            stmt.execute();
+            factory.closeConnection(con);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FichaPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_enviarButtonActionPerformed
 
     private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
