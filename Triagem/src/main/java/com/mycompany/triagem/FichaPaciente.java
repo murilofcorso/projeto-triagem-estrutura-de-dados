@@ -1,14 +1,7 @@
 package com.mycompany.triagem;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -505,35 +498,7 @@ public class FichaPaciente extends javax.swing.JFrame {
             }
         }
         Paciente p = new Paciente(nomePaciente, telefone, cpf, sexo, endereco, email, idade, pontuacao);
-        
-        ConnectionFactory factory = new ConnectionFactory();
-        Connection con = factory.getConnection();
-        try {
-            String statement = String.format("INSERT INTO pacientes (nome, idade, sexo, endereco, email, cpf, telefone, pontuacao) "
-                + "VALUES (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"%s\")", 
-                nomePaciente, idade, sexo, endereco, email, cpf, telefone, pontuacao);      
-            con.prepareStatement(statement).execute();
-            
-            statement = "SELECT id, pontuacao FROM pacientes ORDER BY pontuacao DESC";                    
-            ResultSet rs = con.createStatement().executeQuery(statement); 
-            
-            
-            
-            while (rs.next()) {
-                int ids = rs.getInt(1);
-                int pontuacoes = rs.getInt(2);
-                
-                this.listaPrioridade.add(new int[] {ids, pontuacoes});
-            }    
-            factory.closeConnection(con);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(FichaPaciente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        for(int i = 0; i < this.listaPrioridade.size(); i++) {
-            System.out.printf("senha: %s, prioridade: %s\n", this.listaPrioridade.get(i)[0], this.listaPrioridade.get(i)[1]);
-        }
+        p.cadastrar(false);
     }//GEN-LAST:event_enviarButtonActionPerformed
 
     private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
