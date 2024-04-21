@@ -1,13 +1,11 @@
 package com.mycompany.triagem;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class FichaPaciente extends javax.swing.JFrame {
-    ArrayList<int[]> listaPrioridade = new ArrayList<int[]>();
     
     public FichaPaciente() {
         initComponents();
