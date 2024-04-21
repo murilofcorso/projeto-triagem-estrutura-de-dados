@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PainelDeAtendimento extends javax.swing.JFrame {  
     Connection con;
@@ -45,8 +43,10 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
         }
         this.filaDePacientesNomes = filaDePacientesNomes;
         this.filaDePacientesIds = filaDePacientesIds;
-        this.nomePacienteAtual = filaDePacientesNomes.get(0);
-        this.idPacienteAtual = filaDePacientesIds.get(0);
+        if(filaDePacientesNomes.size() > 0) {
+            this.nomePacienteAtual = filaDePacientesNomes.get(0);
+            this.idPacienteAtual = filaDePacientesIds.get(0);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -77,14 +77,16 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(proximoPacienteButton)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(pacienteAtualLabel)))
-                .addContainerGap(175, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pacienteAtualLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(proximoPacienteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,17 +104,18 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void proximoPacienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoPacienteButtonActionPerformed
-        if(this.nomePacienteAtual != null) {
-            try {
+        try {
+            if(this.nomePacienteAtual != null) {
                 PreparedStatement stmt = con.prepareStatement("DELETE FROM fila_de_espera WHERE id_paciente = ?");
                 stmt.setInt(1, idPacienteAtual);
                 stmt.execute();
-            } catch (SQLException ex) {
-                System.out.println(ex);
             }
+            getFilaDePacientes();
+            pacienteAtualLabel.setText(nomePacienteAtual);           
+        } catch (SQLException ex) {
+            System.out.println("oi");
         }
-        getFilaDePacientes();
-        pacienteAtualLabel.setText(nomePacienteAtual);
+       
     }//GEN-LAST:event_proximoPacienteButtonActionPerformed
 
     public static void main(String args[]) {

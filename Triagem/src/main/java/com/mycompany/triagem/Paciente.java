@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Paciente {
+    Connection con;
+    
     String nome;
     String telefone;
     String cpf;
@@ -26,16 +28,22 @@ public class Paciente {
         this.email = email;
         this.idade = idade;
         this.pontuacao = pontuacao;
+        
+        this.abrirConexao();
     }
     
     public void exibePaciente() {
         System.out.printf("nome: %s\ntelefone: %s\ncpf: %s\nsexo: %s\nendereço: %s\ne-mail: %s\nidade: %s\npontuação: %s", nome, telefone, cpf, sexo, endereco, email, idade, pontuacao);
     }
     
-    public void cadastrar(boolean cadastrado) {
+    public void abrirConexao() {
+        ConnectionFactory factory = new ConnectionFactory();
+        con = factory.getConnection();
+    }
+    
+    public void cadastrar() {
         try {
             ConnectionFactory factory = new ConnectionFactory();
-            Connection con = factory.getConnection();
             ResultSet rs = con.prepareStatement("SELECT * FROM pacientes ORDER BY id").executeQuery();
             boolean pacienteJaCadastrado = false;
             int idPaciente = 0;
@@ -62,5 +70,10 @@ public class Paciente {
         } catch(SQLException ex) {
             Logger.getLogger(FichaPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void fecharConexao() {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.closeConnection(con);
     }
 }

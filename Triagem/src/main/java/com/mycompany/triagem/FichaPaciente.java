@@ -496,7 +496,7 @@ public class FichaPaciente extends javax.swing.JFrame {
             }
         }
         Paciente p = new Paciente(nomePaciente, telefone, cpf, sexo, endereco, email, idade, pontuacao);
-        p.cadastrar(false);
+        p.cadastrar();
     }//GEN-LAST:event_enviarButtonActionPerformed
 
     private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
