@@ -5,9 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PainelDeAtendimento extends javax.swing.JFrame {  
     Connection con;
+    ArrayList<String> filaDePacientesNomes;
+    String nomePacienteAtual;
+    ArrayList<Integer> filaDePacientesIds;
+    int idPacienteAtual;
     
     public PainelDeAtendimento() {
         initComponents();
@@ -19,25 +25,28 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
         con = factory.getConnection();
     }
     
-    public ArrayList<String> getFilaDePacientes() {
-        ArrayList<Integer> filaDePacientes = new ArrayList<>();
-        ArrayList<String> filaDeAtendimento = new ArrayList<>();
+    public void getFilaDePacientes() {
+        ArrayList<Integer> filaDePacientesIds = new ArrayList<>();
+        ArrayList<String> filaDePacientesNomes = new ArrayList<>();
         try {          
-            ResultSet rsFila = con.prepareCall("SELECT * FROM fila_de_espera ORDER BY pontuacao").executeQuery();
+            ResultSet rsFila = con.prepareCall("SELECT * FROM fila_de_espera ORDER BY pontuacao DESC").executeQuery();
             while(rsFila.next()) {
-                filaDePacientes.add(rsFila.getInt("id_paciente"));
+                filaDePacientesIds.add(rsFila.getInt("id_paciente"));
             }           
-            for(int idPaciente: filaDePacientes) {
+            for(int idPaciente: filaDePacientesIds) {
                 PreparedStatement stmt = con.prepareStatement("SELECT nome FROM pacientes WHERE id = ?");
                 stmt.setInt(1, idPaciente);
                 ResultSet rsPacientes = stmt.executeQuery();
                 rsPacientes.next();
-                filaDeAtendimento.add(rsPacientes.getString("nome"));
+                filaDePacientesNomes.add(rsPacientes.getString("nome"));
             }    
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-        return filaDeAtendimento;
+        this.filaDePacientesNomes = filaDePacientesNomes;
+        this.filaDePacientesIds = filaDePacientesIds;
+        this.nomePacienteAtual = filaDePacientesNomes.get(0);
+        this.idPacienteAtual = filaDePacientesIds.get(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,6 +66,11 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
         pacienteAtualLabel.setText("0");
 
         proximoPacienteButton.setText("Próximo paciente");
+        proximoPacienteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proximoPacienteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +100,20 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void proximoPacienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoPacienteButtonActionPerformed
+        if(this.nomePacienteAtual != null) {
+            try {
+                PreparedStatement stmt = con.prepareStatement("DELETE FROM fila_de_espera WHERE id_paciente = ?");
+                stmt.setInt(1, idPacienteAtual);
+                stmt.execute();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+        getFilaDePacientes();
+        pacienteAtualLabel.setText(nomePacienteAtual);
+    }//GEN-LAST:event_proximoPacienteButtonActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
