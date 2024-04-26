@@ -63,7 +63,6 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
         jLabel1.setText("Paciente atual: ");
 
         pacienteAtualLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        pacienteAtualLabel.setText("0");
 
         proximoPacienteButton.setText("Próximo paciente");
         proximoPacienteButton.addActionListener(new java.awt.event.ActionListener() {

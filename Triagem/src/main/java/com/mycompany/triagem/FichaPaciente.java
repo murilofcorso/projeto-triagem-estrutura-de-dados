@@ -61,6 +61,7 @@ public class FichaPaciente extends javax.swing.JFrame {
         alcoolCheckBox = new javax.swing.JCheckBox();
         atividadeFisicaCheckBox = new javax.swing.JCheckBox();
         enviarButton = new javax.swing.JButton();
+        voltarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,6 +155,13 @@ public class FichaPaciente extends javax.swing.JFrame {
             }
         });
 
+        voltarButton.setText("Voltar");
+        voltarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,7 +225,8 @@ public class FichaPaciente extends javax.swing.JFrame {
                                                     .addComponent(tosseCheckBox)
                                                     .addComponent(febreCheckBox)
                                                     .addComponent(fraquezaCheckBox)
-                                                    .addComponent(dorGargantaCheckBox))
+                                                    .addComponent(dorGargantaCheckBox)
+                                                    .addComponent(voltarButton))
                                                 .addGap(50, 50, 50)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(dificuldadeRespirarCheckBox)
@@ -327,8 +336,10 @@ public class FichaPaciente extends javax.swing.JFrame {
                     .addComponent(dorGargantaCheckBox)
                     .addComponent(dorMuscularCheckBox)
                     .addComponent(nauseaCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(enviarButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(enviarButton)
+                    .addComponent(voltarButton))
                 .addGap(20, 20, 20))
         );
 
@@ -497,6 +508,9 @@ public class FichaPaciente extends javax.swing.JFrame {
         }
         Paciente p = new Paciente(nomePaciente, telefone, cpf, sexo, endereco, email, idade, pontuacao);
         p.cadastrar();
+        
+        dispose();
+        new PaginaInicial().setVisible(true);
     }//GEN-LAST:event_enviarButtonActionPerformed
 
     private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
@@ -510,6 +524,11 @@ public class FichaPaciente extends javax.swing.JFrame {
             sexoMasculinoCheckBox.setSelected(false);  
         }
     }//GEN-LAST:event_sexoFemininoCheckBoxActionPerformed
+
+    private void voltarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarButtonActionPerformed
+        dispose();
+        new PaginaInicial().setVisible(true);
+    }//GEN-LAST:event_voltarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -593,6 +612,7 @@ public class FichaPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel sintomasLabel;
     private javax.swing.JTextField telefoneTextField;
     private javax.swing.JCheckBox tosseCheckBox;
+    private javax.swing.JButton voltarButton;
     // End of variables declaration//GEN-END:variables
 }
 
