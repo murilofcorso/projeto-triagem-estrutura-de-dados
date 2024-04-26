@@ -1,5 +1,6 @@
 package com.mycompany.triagem;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
     String nomePacienteAtual;
     ArrayList<Integer> filaDePacientesIds;
     int idPacienteAtual;
+    ArrayList<Color> filaDePacientesCores;
+    Color corPacienteAtual;
     
     public PainelDeAtendimento() {
         initComponents();
@@ -26,10 +29,30 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
     public void getFilaDePacientes() {
         ArrayList<Integer> filaDePacientesIds = new ArrayList<>();
         ArrayList<String> filaDePacientesNomes = new ArrayList<>();
+        filaDePacientesCores = new ArrayList<>();
         try {          
             ResultSet rsFila = con.prepareCall("SELECT * FROM fila_de_espera ORDER BY pontuacao DESC").executeQuery();
             while(rsFila.next()) {
                 filaDePacientesIds.add(rsFila.getInt("id_paciente"));
+                int pontuacao = rsFila.getInt("pontuacao");
+                Color cor;
+                System.out.println(pontuacao);
+                if((pontuacao >= -10) & (pontuacao < 7)) {
+                    cor = Color.BLUE;
+                }
+                else if((pontuacao >= 7) & (pontuacao < 14)) {
+                    cor = Color.GREEN;
+                }
+                else if((pontuacao >= 14) & (pontuacao < 21)) {
+                    cor = Color.YELLOW;
+                }
+                else if((pontuacao >= 21) & (pontuacao < 28)) {
+                    cor = Color.ORANGE;
+                }
+                else{
+                    cor = Color.RED;
+                }
+                filaDePacientesCores.add(cor);
             }           
             for(int idPaciente: filaDePacientesIds) {
                 PreparedStatement stmt = con.prepareStatement("SELECT nome FROM pacientes WHERE id = ?");
@@ -46,6 +69,7 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
         if(filaDePacientesNomes.size() > 0) {
             this.nomePacienteAtual = filaDePacientesNomes.get(0);
             this.idPacienteAtual = filaDePacientesIds.get(0);
+            this.corPacienteAtual = filaDePacientesCores.get(0);
         }
     }
 
@@ -110,7 +134,8 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
                 stmt.execute();
             }
             getFilaDePacientes();
-            pacienteAtualLabel.setText(nomePacienteAtual);           
+            pacienteAtualLabel.setForeground(corPacienteAtual);
+            pacienteAtualLabel.setText(nomePacienteAtual);          
         } catch (SQLException ex) {
             System.out.println("oi");
         }

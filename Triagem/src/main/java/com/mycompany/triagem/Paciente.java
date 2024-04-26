@@ -46,7 +46,7 @@ public class Paciente {
             ConnectionFactory factory = new ConnectionFactory();
             ResultSet rs = con.prepareStatement("SELECT * FROM pacientes ORDER BY id").executeQuery();
             boolean pacienteJaCadastrado = false;
-            int idPaciente = 0;
+            int idPaciente = 1;
             while(rs.next()) {
                 String cpfPaciente = rs.getString("cpf");
                 if(cpfPaciente.contains(cpf)) {

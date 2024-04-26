@@ -383,10 +383,11 @@ public class FichaPaciente extends javax.swing.JFrame {
             "fraqueza"
         };
         
-        if(!(sexoMasculinoCheckBox.isSelected() | sexoFemininoCheckBox.isSelected())) {
-            JOptionPane.showMessageDialog(rootPane, "INSIRA O SEU SEXO");
-            return;
-        }
+//        if(!(sexoMasculinoCheckBox.isSelected() | sexoFemininoCheckBox.isSelected())) {
+//            JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS OS CAMPOS");
+//            return;
+//        }
+        sexo = "masculino";
         
         // Iterar sobre as variáveis
         for (String nome : nomeDasVariaveis) {
@@ -404,7 +405,7 @@ public class FichaPaciente extends javax.swing.JFrame {
                         JTextField textField = (JTextField) fieldValue;
                         // Obter o texto do campo
                         String texto = textField.getText();
-                        textField.setText(null);
+//                        textField.setText(null);
                         // Verificar se o campo está preenchido
                         if(texto.isEmpty()) {
                             JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS OS CAMPOS");
@@ -438,6 +439,26 @@ public class FichaPaciente extends javax.swing.JFrame {
                             }
                             else if(nome.contains("idade")) {
                                 idade = texto;
+                                try {
+                                    Integer.valueOf(idade);
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Insira um valor numerico na sua idade");
+                                    return;
+                                }
+                                int idadeInt = Integer.parseInt(idade);
+                                
+                                if(idadeInt >= 80) {
+                                    pontuacao += 4;
+                                }
+                                else if((idadeInt >= 60) & (idadeInt < 80)) {
+                                    pontuacao += 3;
+                                }
+                                else if((idadeInt >= 40) & (idadeInt < 60)) {
+                                    pontuacao += 2;
+                                }
+                                else if((idadeInt >= 20) & (idadeInt < 40)) {
+                                    pontuacao += 1;
+                                }
                             }
                         }
                     }
@@ -465,16 +486,16 @@ public class FichaPaciente extends javax.swing.JFrame {
                         else if(nome.contains("atividadeFisica") & checkBox.isSelected()) {
                             pontuacao -= 3;
                         }
-                        else if(nome.contains("sexo")) {
-                            if(checkBox.isSelected()) {
-                                if(nome.contains("Feminino")) {
-                                    sexo = "feminino";
-                                }
-                                else if(nome.contains("Masculino")) {
-                                    sexo = "masculino";
-                                }
-                            }
-                        }
+//                        else if(nome.contains("sexo")) {
+//                            if(checkBox.isSelected()) {
+//                                if(nome.contains("Feminino")) {
+//                                    sexo = "feminino";
+//                                }
+//                                else if(nome.contains("Masculino")) {
+//                                    sexo = "masculino";
+//                                }
+//                            }
+//                        }
                         // Iterar pelos sintomas
                         for(int i = 0; i < sintomas.length; i++) {
                             // Verificar se o CheckBox é de um sintoma
@@ -500,6 +521,7 @@ public class FichaPaciente extends javax.swing.JFrame {
                                 }                    
                             }    
                         }
+                        checkBox.setSelected(false);
                     }
                 } catch (NoSuchFieldException | IllegalAccessException ex) {
                     ex.printStackTrace();
@@ -507,10 +529,8 @@ public class FichaPaciente extends javax.swing.JFrame {
             }
         }
         Paciente p = new Paciente(nomePaciente, telefone, cpf, sexo, endereco, email, idade, pontuacao);
-        p.cadastrar();
-        
-        dispose();
-        new PaginaInicial().setVisible(true);
+        System.out.println(pontuacao);
+//        p.cadastrar();
     }//GEN-LAST:event_enviarButtonActionPerformed
 
     private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
