@@ -1,9 +1,13 @@
 package com.mycompany.triagem;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 public class FichaPaciente extends javax.swing.JFrame {
     
@@ -62,6 +66,7 @@ public class FichaPaciente extends javax.swing.JFrame {
         atividadeFisicaCheckBox = new javax.swing.JCheckBox();
         enviarButton = new javax.swing.JButton();
         voltarButton = new javax.swing.JButton();
+        prioridadeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,26 +226,31 @@ public class FichaPaciente extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(6, 6, 6)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(corizaCheckBox)
-                                                    .addComponent(tosseCheckBox)
-                                                    .addComponent(febreCheckBox)
-                                                    .addComponent(fraquezaCheckBox)
-                                                    .addComponent(dorGargantaCheckBox)
-                                                    .addComponent(voltarButton))
-                                                .addGap(50, 50, 50)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(dificuldadeRespirarCheckBox)
-                                                    .addComponent(perdaPaladarCheckBox)
-                                                    .addComponent(calafrioCheckBox)
-                                                    .addComponent(cefaleiaCheckBox)
-                                                    .addComponent(dorMuscularCheckBox))
-                                                .addGap(50, 50, 50)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(perdaOlfatoCheckBox)
-                                                    .addComponent(diarreiaCheckBox)
-                                                    .addComponent(dificuldadeEngolirCheckBox)
-                                                    .addComponent(congestaoCheckBox)
-                                                    .addComponent(nauseaCheckBox))))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(corizaCheckBox)
+                                                            .addComponent(tosseCheckBox)
+                                                            .addComponent(febreCheckBox)
+                                                            .addComponent(fraquezaCheckBox)
+                                                            .addComponent(dorGargantaCheckBox))
+                                                        .addGap(50, 50, 50)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(dificuldadeRespirarCheckBox)
+                                                            .addComponent(perdaPaladarCheckBox)
+                                                            .addComponent(calafrioCheckBox)
+                                                            .addComponent(cefaleiaCheckBox)
+                                                            .addComponent(dorMuscularCheckBox))
+                                                        .addGap(50, 50, 50)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(perdaOlfatoCheckBox)
+                                                            .addComponent(diarreiaCheckBox)
+                                                            .addComponent(dificuldadeEngolirCheckBox)
+                                                            .addComponent(congestaoCheckBox)
+                                                            .addComponent(nauseaCheckBox)))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(voltarButton)
+                                                        .addGap(124, 124, 124)
+                                                        .addComponent(prioridadeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
@@ -339,7 +349,8 @@ public class FichaPaciente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(enviarButton)
-                    .addComponent(voltarButton))
+                    .addComponent(voltarButton)
+                    .addComponent(prioridadeLabel))
                 .addGap(20, 20, 20))
         );
 
@@ -530,7 +541,36 @@ public class FichaPaciente extends javax.swing.JFrame {
         }
         Paciente p = new Paciente(nomePaciente, telefone, cpf, sexo, endereco, email, idade, pontuacao);
         System.out.println(pontuacao);
-//        p.cadastrar();
+        p.cadastrar();
+        
+        Color cor;
+        if((pontuacao >= -10) & (pontuacao < 7)) {
+            cor = Color.BLUE;
+        }
+        else if((pontuacao >= 7) & (pontuacao < 14)) {
+            cor = Color.GREEN;
+        }
+        else if((pontuacao >= 14) & (pontuacao < 21)) {
+            cor = Color.YELLOW;
+        }
+        else if((pontuacao >= 21) & (pontuacao < 28)) {
+            cor = Color.ORANGE;
+        }
+        else{
+            cor = Color.RED;
+        }
+        prioridadeLabel.setForeground(cor);
+        prioridadeLabel.setText(nomePaciente);
+        prioridadeLabel.setVisible(true);
+        
+        Timer timer = new Timer(4000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                prioridadeLabel.setVisible(false);
+            }
+        });
+        timer.setRepeats(false); // Executa o Timer apenas uma vez
+        timer.start(); // Inicia o Timer     
     }//GEN-LAST:event_enviarButtonActionPerformed
 
     private void sexoMasculinoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoMasculinoCheckBoxActionPerformed
@@ -627,6 +667,7 @@ public class FichaPaciente extends javax.swing.JFrame {
     private javax.swing.JCheckBox perdaOlfatoCheckBox;
     private javax.swing.JCheckBox perdaPaladarCheckBox;
     private javax.swing.JTextField predisposicoesTextField;
+    private javax.swing.JLabel prioridadeLabel;
     private javax.swing.JCheckBox sexoFemininoCheckBox;
     private javax.swing.JCheckBox sexoMasculinoCheckBox;
     private javax.swing.JLabel sintomasLabel;
