@@ -187,6 +187,35 @@ public class FichaPaciente extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(sintomasLabel)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(corizaCheckBox)
+                                                            .addComponent(tosseCheckBox)
+                                                            .addComponent(febreCheckBox)
+                                                            .addComponent(fraquezaCheckBox)
+                                                            .addComponent(dorGargantaCheckBox))
+                                                        .addGap(50, 50, 50)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(dificuldadeRespirarCheckBox)
+                                                            .addComponent(perdaPaladarCheckBox)
+                                                            .addComponent(calafrioCheckBox)
+                                                            .addComponent(cefaleiaCheckBox)
+                                                            .addComponent(dorMuscularCheckBox))
+                                                        .addGap(50, 50, 50)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(perdaOlfatoCheckBox)
+                                                            .addComponent(diarreiaCheckBox)
+                                                            .addComponent(dificuldadeEngolirCheckBox)
+                                                            .addComponent(congestaoCheckBox)
+                                                            .addComponent(nauseaCheckBox)))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(voltarButton)
+                                                        .addGap(124, 124, 124)
+                                                        .addComponent(prioridadeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jLabel13)
                                                 .addComponent(jLabel10)
@@ -221,36 +250,7 @@ public class FichaPaciente extends javax.swing.JFrame {
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addComponent(jLabel2)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(nomeTextField)))
-                                            .addComponent(sintomasLabel)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(corizaCheckBox)
-                                                            .addComponent(tosseCheckBox)
-                                                            .addComponent(febreCheckBox)
-                                                            .addComponent(fraquezaCheckBox)
-                                                            .addComponent(dorGargantaCheckBox))
-                                                        .addGap(50, 50, 50)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(dificuldadeRespirarCheckBox)
-                                                            .addComponent(perdaPaladarCheckBox)
-                                                            .addComponent(calafrioCheckBox)
-                                                            .addComponent(cefaleiaCheckBox)
-                                                            .addComponent(dorMuscularCheckBox))
-                                                        .addGap(50, 50, 50)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(perdaOlfatoCheckBox)
-                                                            .addComponent(diarreiaCheckBox)
-                                                            .addComponent(dificuldadeEngolirCheckBox)
-                                                            .addComponent(congestaoCheckBox)
-                                                            .addComponent(nauseaCheckBox)))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(voltarButton)
-                                                        .addGap(124, 124, 124)
-                                                        .addComponent(prioridadeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                    .addComponent(nomeTextField))))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
@@ -394,11 +394,10 @@ public class FichaPaciente extends javax.swing.JFrame {
             "fraqueza"
         };
         
-//        if(!(sexoMasculinoCheckBox.isSelected() | sexoFemininoCheckBox.isSelected())) {
-//            JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS OS CAMPOS");
-//            return;
-//        }
-        sexo = "masculino";
+        if(!(sexoMasculinoCheckBox.isSelected() | sexoFemininoCheckBox.isSelected())) {
+            JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS OS CAMPOS");
+            return;
+        }
         
         // Iterar sobre as variáveis
         for (String nome : nomeDasVariaveis) {
@@ -416,7 +415,7 @@ public class FichaPaciente extends javax.swing.JFrame {
                         JTextField textField = (JTextField) fieldValue;
                         // Obter o texto do campo
                         String texto = textField.getText();
-//                        textField.setText(null);
+                        textField.setText(null);
                         // Verificar se o campo está preenchido
                         if(texto.isEmpty()) {
                             JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS OS CAMPOS");
@@ -497,16 +496,16 @@ public class FichaPaciente extends javax.swing.JFrame {
                         else if(nome.contains("atividadeFisica") & checkBox.isSelected()) {
                             pontuacao -= 3;
                         }
-//                        else if(nome.contains("sexo")) {
-//                            if(checkBox.isSelected()) {
-//                                if(nome.contains("Feminino")) {
-//                                    sexo = "feminino";
-//                                }
-//                                else if(nome.contains("Masculino")) {
-//                                    sexo = "masculino";
-//                                }
-//                            }
-//                        }
+                        else if(nome.contains("sexo")) {
+                            if(checkBox.isSelected()) {
+                                if(nome.contains("Feminino")) {
+                                    sexo = "feminino";
+                                }
+                                else if(nome.contains("Masculino")) {
+                                    sexo = "masculino";
+                                }
+                            }
+                        }
                         // Iterar pelos sintomas
                         for(int i = 0; i < sintomas.length; i++) {
                             // Verificar se o CheckBox é de um sintoma
@@ -544,16 +543,16 @@ public class FichaPaciente extends javax.swing.JFrame {
         p.cadastrar();
         
         Color cor;
-        if((pontuacao >= -10) & (pontuacao < 7)) {
+        if((pontuacao >= -10) & (pontuacao < 5)) {
             cor = Color.BLUE;
         }
-        else if((pontuacao >= 7) & (pontuacao < 14)) {
+        else if((pontuacao >= 5) & (pontuacao < 11)) {
             cor = Color.GREEN;
         }
-        else if((pontuacao >= 14) & (pontuacao < 21)) {
+        else if((pontuacao >= 11) & (pontuacao < 18)) {
             cor = Color.YELLOW;
         }
-        else if((pontuacao >= 21) & (pontuacao < 28)) {
+        else if((pontuacao >= 18) & (pontuacao < 24)) {
             cor = Color.ORANGE;
         }
         else{

@@ -40,7 +40,43 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="sintomasLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="corizaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="tosseCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="febreCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="fraquezaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="dorGargantaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="dificuldadeRespirarCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="perdaPaladarCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="calafrioCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="cefaleiaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="dorMuscularCheckBox" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="perdaOlfatoCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="diarreiaCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="dificuldadeEngolirCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="congestaoCheckBox" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="nauseaCheckBox" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="voltarButton" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                                                      <Component id="prioridadeLabel" min="-2" pref="133" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -77,42 +113,6 @@
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="nomeTextField" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="sintomasLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="corizaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="tosseCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="febreCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="fraquezaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="dorGargantaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="dificuldadeRespirarCheckBox" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="perdaPaladarCheckBox" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="calafrioCheckBox" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="cefaleiaCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="dorMuscularCheckBox" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="perdaOlfatoCheckBox" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="diarreiaCheckBox" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="dificuldadeEngolirCheckBox" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="congestaoCheckBox" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="nauseaCheckBox" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="voltarButton" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
-                                                      <Component id="prioridadeLabel" min="-2" pref="133" max="-2" attributes="0"/>
-                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>

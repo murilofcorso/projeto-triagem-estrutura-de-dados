@@ -37,16 +37,16 @@ public class PainelDeAtendimento extends javax.swing.JFrame {
                 int pontuacao = rsFila.getInt("pontuacao");
                 Color cor;
                 System.out.println(pontuacao);
-                if((pontuacao >= -10) & (pontuacao < 7)) {
+                if((pontuacao >= -10) & (pontuacao < 5)) {
                     cor = Color.BLUE;
                 }
-                else if((pontuacao >= 7) & (pontuacao < 14)) {
+                else if((pontuacao >= 5) & (pontuacao < 11)) {
                     cor = Color.GREEN;
                 }
-                else if((pontuacao >= 14) & (pontuacao < 21)) {
+                else if((pontuacao >= 11) & (pontuacao < 18)) {
                     cor = Color.YELLOW;
                 }
-                else if((pontuacao >= 21) & (pontuacao < 28)) {
+                else if((pontuacao >= 18) & (pontuacao < 24)) {
                     cor = Color.ORANGE;
                 }
                 else{
